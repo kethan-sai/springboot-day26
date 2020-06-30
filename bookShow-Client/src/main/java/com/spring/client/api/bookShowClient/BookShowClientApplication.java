@@ -33,8 +33,8 @@ public class BookShowClientApplication {
 	}
 
 	@PostMapping("/bookNow")
-	public Flux<Show> BookNow(@RequestBody Show request) {
-		return (Flux<Show>) webClient.post().uri("/create").bodyValue(request).retrieve();
+	public Mono<Void> BookNow(@RequestBody Show request) {
+		return webClient.post().uri("/create").bodyValue(request).retrieve().bodyToMono(Void.class).then();
 	}
 
 	@GetMapping("/trackBookings")
